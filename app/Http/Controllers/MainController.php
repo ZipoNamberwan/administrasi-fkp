@@ -398,6 +398,8 @@ class MainController extends Controller
         $worksheet->setCellValue('L17', $d);
         $worksheet->setCellValue('L18', $d);
 
+        $worksheet->setCellValue('D8', ': ' . $d);
+
         $worksheet->setCellValue('I21', 'Probolinggo, ' . $d);
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
@@ -439,7 +441,8 @@ class MainController extends Controller
         $worksheet->setCellValue('J19', 'Probolinggo, ' . $d);
         $worksheet->setCellValue('J24', $request->admin_name);
 
-        $worksheet->setCellValue('J13', $request->has('published') ? 150000 : 0);
+        $worksheet->setCellValue('J13', !$request->has('have_state_vehicle') ? 150000 : 0);
+        $worksheet->setCellValue('I17', !$request->has('have_state_vehicle') ? 'Tujuh Ratus Lima Puluh Ribu Rupiah' : 'Enam Ratus Ribu Rupiah');
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('storage/generated/' . $rdmString . '/5 Honor Asfas dan Administrator/3 Daftar Rincian Perhitungan Pembayaran.xlsx');
