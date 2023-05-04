@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Utilities;
+use App\Models\Record;
 use App\Models\Subdistrict;
 use App\Models\Village;
 use Illuminate\Http\Request;
@@ -401,6 +402,7 @@ class MainController extends Controller
         $worksheet->setCellValue('D8', ': ' . $d);
 
         $worksheet->setCellValue('I21', 'Probolinggo, ' . $d);
+        $worksheet->setCellValue('H16', !$request->has('have_state_vehicle') ? 'Kendaraan Umum' : 'Kendaraan Dinas');
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('storage/generated/' . $rdmString . '/5 Honor Asfas dan Administrator/2 Daftar SPD Paket Meeting Dalam Kota.xlsx');
@@ -489,6 +491,11 @@ class MainController extends Controller
 
         $zip->close();
 
+        Record::create([
+            'subdistrict' => $subdistrict->name,
+            'village' => $village->name,
+        ]);
+        
         return Storage::download('public/generated/' . $rdmString . '/Berkas FKP ' . $request->fkpindex . ' ' . $subdistrict->name . ' ' . $village->name . ' ' . IntlDateFormatter::create(
             'id_ID',
             IntlDateFormatter::GREGORIAN,

@@ -24,6 +24,12 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('subdistrict_id')->constrained('subdistrict');
         });
+
+        Schema::create('record', function (Blueprint $table) {
+            $table->id()->autoincrement();
+            $table->string('subdistrict');
+            $table->string('village');
+        });
     }
 
     /**
