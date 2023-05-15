@@ -320,8 +320,8 @@ class MainController extends Controller
             null,
             'dd LLLL yyyy'
         )->format($date_obj));
-        $worksheet->setCellValue('F13',  $village->name);
-        $worksheet->setCellValue('F14',  $village->name);
+        $worksheet->setCellValue('F13',  'Koramil ' . $subdistrict->name);
+        $worksheet->setCellValue('F14',  'Polsek ' . $subdistrict->name);
         $worksheet->setCellValue('G13',  $village->name);
         $worksheet->setCellValue('G14',  $village->name);
         $worksheet->setCellValue('J18', 'Probolinggo, ' . IntlDateFormatter::create(
@@ -495,7 +495,7 @@ class MainController extends Controller
             'subdistrict' => $subdistrict->name,
             'village' => $village->name,
         ]);
-        
+
         return Storage::download('public/generated/' . $rdmString . '/Berkas FKP ' . $request->fkpindex . ' ' . $subdistrict->name . ' ' . $village->name . ' ' . IntlDateFormatter::create(
             'id_ID',
             IntlDateFormatter::GREGORIAN,
